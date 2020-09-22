@@ -122,7 +122,7 @@ def load_args():
     return parser.parse_args()
 
 def load_server_socket():
-    host = "127.0.0.1"
+    host = "0.0.0.0"
     port = 2593
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
