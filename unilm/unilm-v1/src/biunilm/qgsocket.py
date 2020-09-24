@@ -44,6 +44,7 @@ def detokenize(tk_list):
 
 def ascii_print(text):
     text = text.encode("ascii", "ignore")
+    print(type(text))
     print(text)
     return text
     
@@ -251,6 +252,8 @@ def main():
                             output_ids = traces['pred_seq']
                         else:
                             output_ids = traces.tolist()
+                            
+                        qg_result = []
                         for i in range(len(buf)):
                             w_ids = output_ids[i]
                             output_buf = tokenizer.convert_ids_to_tokens(w_ids)
@@ -260,11 +263,13 @@ def main():
                                     break
                                 output_tokens.append(t)
                             output_sequence = ' '.join(detokenize(output_tokens))
-                            cs.sendall(ascii_print(output_sequence))
+                            qg_result.append(output_sequence)
                             if args.need_score_traces:
                                 score_trace_list[buf_id[i]] = {
                                     'scores': traces['scores'][i], 'wids': traces['wids'][i], 'ptrs': traces['ptrs'][i]}
+                        cs.sendall(ascii_print('\n'.join(qg_result)))
             cs.close()
+            
             if args.output_file:
                 fn_out = args.output_file
             else:
