@@ -44,7 +44,6 @@ def detokenize(tk_list):
 
 def ascii_print(text):
     text = text.encode("ascii", "ignore")
-    print(type(text))
     print(text)
     return text
     
