@@ -5,7 +5,7 @@ EVAL_SPLIT=test
 TEMP_DIR=${SRC}/temp
 export PYTORCH_PRETRAINED_BERT_CACHE=/${TEMP_DIR}/bert-cased-pretrained-cache
 # run decoding
-python biunilm/qgsocket.py --bert_model bert-large-cased --new_segment_ids --mode s2s \
+python3 biunilm/qgsocket.py --bert_model bert-large-cased --new_segment_ids --mode s2s \
   --input_file ${DATA_DIR}/words.txt --split ${EVAL_SPLIT} \
   --model_recover_path ${MODEL_RECOVER_PATH} \
   --max_seq_length 512 --max_tgt_length 48 \

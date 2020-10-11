@@ -205,15 +205,22 @@ def main():
         model.eval()
         
         max_src_length = args.max_seq_length - 2 - args.max_tgt_length
-
+        
+        DONE_SIGNAL = 42 # bytescode of asterisk '*'
         while True:
-            print("Waiting Connection:")
             ss.listen(100)
-            cs, addr = ss.accept()
+            print("Waiting Connection:")
             
+            cs, addr = ss.accept()
+            data = bytes()
+            while True:
+                recv = cs.recv(1024)
+                if 0 < len(recv) and DONE_SIGNAL == recv[-1]:
+                    data += recv[:len(recv)-1]
+                    break
+                data += recv
             print("Connection with:", addr)
-            data = cs.recv(10240)
-            print("Received:", data.decode())
+            print("Received:", len(data), data.decode())
 
             input_lines = [x.strip() for x in data.decode().splitlines()]
             if args.subset > 0:
