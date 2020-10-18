@@ -220,9 +220,9 @@ def main():
                     break
                 data += recv
             print("Connection with:", addr)
-            print("Received:", len(data), data.decode())
+            print("Received:", len(data))
 
-            input_lines = [x.strip() for x in data.decode().splitlines()]
+            input_lines = [x.strip() for x in data.decode('utf-8').splitlines()]
             if args.subset > 0:
                 logger.info("Decoding subset: %d", args.subset)
                 input_lines = input_lines[:args.subset]
